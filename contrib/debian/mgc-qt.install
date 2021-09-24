@@ -1,0 +1,6 @@
+usr/local/bin/mgc-qt usr/bin
+share/pixmaps/mgc32.xpm usr/share/pixmaps
+share/pixmaps/mgc16.xpm usr/share/pixmaps
+share/pixmaps/mgc128.png usr/share/pixmaps
+debian/mgc-qt.desktop usr/share/applications
+debian/mgc-qt.protocol usr/share/kde4/services/

@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[mgc.qt-translation-012x]
+file_filter = src/qt/locale/mgc_<lang>.ts
+source_file = src/qt/locale/mgc_en.ts
+source_lang = en

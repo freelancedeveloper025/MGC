@@ -1,0 +1,33 @@
+# /etc/conf.d/mgcd: config file for /etc/init.d/mgcd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/mgccore/mgc.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/mgcd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/mgcd.pid"
+
+# Where to write mgcd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/mgcd"
+
+# User and group to own mgcd process
+#BITCOIND_USER="mgccore"
+#BITCOIND_GROUP="mgccore"
+
+# Path to mgcd executable
+#BITCOIND_BIN="/usr/bin/mgcd"
+
+# Nice value to run mgcd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BITCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for mgcd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BITCOIND_SIGTERM_TIMEOUT=60
