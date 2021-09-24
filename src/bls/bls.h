@@ -10,7 +10,7 @@
 #include <uint256.h>
 #include <utilstrencodings.h>
 
-// bls-mgc uses relic, which may define DEBUG and ERROR, which leads to many warnings in some build setups
+// bls-dash uses relic, which may define DEBUG and ERROR, which leads to many warnings in some build setups
 #undef ERROR
 #undef DEBUG
 #include <bls-dash/bls.hpp>
