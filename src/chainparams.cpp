@@ -6,6 +6,8 @@
 
 #include <chainparams.h>
 #include <consensus/merkle.h>
+#include <key_io.h>
+#include <key.h>
 
 #include <tinyformat.h>
 #include <util.h>
@@ -334,17 +336,17 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 76*30;
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
-        consensus.nBudgetPaymentsStartBlock = 3288;
+        consensus.nBudgetPaymentsStartBlock = 988;
         consensus.nBudgetPaymentsCycleBlocks = 16616;
         consensus.nBudgetPaymentsWindowBlocks = 100;
-        consensus.nSuperblockStartBlock = 6140;
+        consensus.nSuperblockStartBlock = 640;
         consensus.nSuperblockStartHash = uint256S("0x0");
         consensus.nSuperblockCycle = 16616;
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
         consensus.BIP34Height = 251;
-        consensus.BIP34Hash = uint256S("0x0");
+        consensus.BIP34Hash = uint256S("0x");
         consensus.BIP65Height = 300; 
         consensus.BIP66Height = 350; 
         consensus.DIP0001Height = 400;
@@ -428,8 +430,8 @@ public:
          * a large 32-bit integer with any alignment.
          */
         pchMessageStart[0] = 0xbf;
-        pchMessageStart[1] = 0xdc;
-        pchMessageStart[2] = 0x6b;
+        pchMessageStart[1] = 0xac;
+        pchMessageStart[2] = 0xdb;
         pchMessageStart[3] = 0xbd;
         nDefaultPort = 9999;
         nPruneAfterHeight = 100000;
@@ -445,11 +447,11 @@ public:
         // This is fine at runtime as we'll fall back to using them as a oneshot if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("128.199.42.190");
-        vSeeds.emplace_back("64.225.77.244");
-        vSeeds.emplace_back("178.62.251.91");
-        vSeeds.emplace_back("167.172.38.30");
         vSeeds.emplace_back("68.183.5.29");
+        vSeeds.emplace_back("167.172.38.30");
+        vSeeds.emplace_back("178.62.251.91");
+        vSeeds.emplace_back("64.225.77.244");
+        vSeeds.emplace_back("128.199.42.190");
         
 
         // Mgc addresses start with 'X'
@@ -495,18 +497,30 @@ public:
 
         checkpointData = {
             {
-                {0, uint256S("0x000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3")},
+                {0, uint256S("0x000005edc3ecfd19d926136c5c3da962d9d5ae1d379aee637d4a1d575db45dd0")},
             }
         };
 
         chainTxData = ChainTxData{
-            1617874573, // * UNIX timestamp of last known number of transactions (Block 1450962)
+            1632302665, // * UNIX timestamp of last known number of transactions (Block 1450962)
             0,   // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.3         // * estimated number of transactions per second after that timestamp
         };
     }
 };
+
+
+std::string CChainParams::GetTreasuryFeeRewardAddress()
+{
+	return "XuFRQgsu6BURHsEL8x3K6TcVpjqMLoyGXd";
+}
+
+CScript CChainParams::GetScriptForTreasuryFeeDestination() {
+    auto address = DecodeDestination(GetTreasuryFeeRewardAddress().c_str());
+    CScript script = GetScriptForDestination(address);
+    return script;
+}
 
 /**
  * Testnet (v3)
