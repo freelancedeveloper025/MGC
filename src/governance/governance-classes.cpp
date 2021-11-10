@@ -335,13 +335,26 @@ bool CSuperblockManager::GetSuperblockPayments(int nBlockHeight, std::vector<CTx
     //       Consider at least following limits:
     //          - max coinbase tx size
     //          - max "budget" available
+    CAmount treasuryAmount = 0;
+    
     for (int i = 0; i < pSuperblock->CountPayments(); i++) {
         CGovernancePayment payment;
         if (pSuperblock->GetPayment(i, payment)) {
             // SET COINBASE OUTPUT TO SUPERBLOCK SETTING
 
-            CTxOut txout = CTxOut(payment.nAmount, payment.script);
+            CTxOut txout = CTxOut(payment.nAmount/2, payment.script);
             voutSuperblockRet.push_back(txout);
+            
+            //Treasury Reward
+            treasuryAmount = treasuryAmount + payment.nAmount/2;
+            if(i == ( pSuperblock->CountPayments() - 1) ){
+            	CScript treasuryRewardscriptPubKey = Params().GetScriptForTreasuryFeeDestination();
+            	CTxOut treasuryTxout = CTxOut(treasuryAmount, treasuryRewardscriptPubKey);
+            	voutSuperblockRet.push_back(treasuryTxout);
+            	CTxDestination treasuryDest;
+            	ExtractDestination(treasuryRewardscriptPubKey, treasuryDest);
+            }
+            
 
             // PRINT NICE LOG OUTPUT FOR SUPERBLOCK PAYMENT
 
